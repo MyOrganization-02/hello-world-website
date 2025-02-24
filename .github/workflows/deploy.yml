@@ -1,0 +1,30 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Trigger on push to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup Pages
+      uses: actions/configure-pages@v2
+
+    - name: Build and Deploy
+      run: |
+        echo "Deploying HTML site to GitHub Pages"
+        cp -r ./* ./docs/
+    
+    - name: Commit and push to GitHub Pages
+      run: |
+        git config --global user.name 'GitHub Actions'
+        git config --global user.email 'actions@github.com'
+        git add .
+        git commit -m "Deploy to GitHub Pages"
+        git push origin main
